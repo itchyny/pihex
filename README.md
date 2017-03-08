@@ -26,3 +26,7 @@ itchyny (https://github.com/itchyny)
 
 ## License
 This software is released under the MIT License, see LICENSE.
+
+## References
+- David H. Bailey, Peter Borwein, and Simon Plouffe, On the Rapid Computation of Various Polylogarithmic Constants, Mathematics of Computation 66, 903-913, 1997.
+- David H. Bailey, The BBP Algorithm for Pi, September 17, 2006.
