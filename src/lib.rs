@@ -1,8 +1,14 @@
+use std::thread;
+use std::sync::mpsc;
+
 pub fn pihex(d: u32) -> String {
-    let fraction: f64 = [(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)]
-        .iter()
-        .map(|&(j, k)| k * series_sum(d, j as u32))
-        .sum();
+    let (tx, rx) = mpsc::channel();
+    for &(j, k) in &[(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)] {
+        let tx = tx.clone();
+        thread::spawn(move || tx.send(k * series_sum(d, j as u32)).unwrap());
+    }
+    drop(tx);
+    let fraction: f64 = rx.iter().sum();
     (0..4)
         .scan(fraction, |x, _| {
             *x = (*x - x.floor()) * 16.0;
