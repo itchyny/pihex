@@ -22,7 +22,7 @@ const TEST_CASES: &[(u32, &str)] = &[(0, "243f"),
                                      (15367, "0c67")];
 
 #[test]
-fn pihex_test() {
+fn bbp_pihex_test() {
     for &(d, hex) in TEST_CASES {
         assert_eq!(bbp::pihex(d), hex);
     }
@@ -36,7 +36,7 @@ fn pihex_bellard_test() {
 }
 
 #[test]
-fn pihex_bellard_pihex_test() {
+fn bbp_pihex_bellard_pihex_test() {
     for i in 0..1000 {
         assert_eq!((i, bbp::pihex(i)), (i, bellard::pihex(i)));
     }
