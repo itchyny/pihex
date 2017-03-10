@@ -20,12 +20,12 @@ pub fn pihex(d: u32) -> String {
 fn series_sum(d: u32, j: u32) -> f64 {
     let fraction1: f64 = (0..d + 1)
         .map(|i| (powmod(16, d - i, (8 * i + j) as u64) as f64) / ((8 * i + j) as f64))
-        .sum();
+        .fold(0.0, |x, y| (x + y).fract());
     let fraction2: f64 = (d + 1..)
         .map(|i| 16.0_f64.powi(d as i32 - i as i32) / ((8 * i + j) as f64))
         .take_while(|&x| x > 1e-13_f64)
         .sum();
-    (fraction1 + fraction2).fract()
+    fraction1 + fraction2
 }
 
 fn powmod(n: u64, m: u32, d: u64) -> u64 {
