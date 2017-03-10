@@ -27,3 +27,17 @@ fn pihex_test() {
         assert_eq!(bbp::pihex(d), hex);
     }
 }
+
+#[test]
+fn pihex_bellard_test() {
+    for &(d, hex) in TEST_CASES {
+        assert_eq!(bellard::pihex(d), hex);
+    }
+}
+
+#[test]
+fn pihex_bellard_pihex_test() {
+    for i in 0..1000 {
+        assert_eq!((i, bbp::pihex(i)), (i, bellard::pihex(i)));
+    }
+}
