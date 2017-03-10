@@ -24,6 +24,6 @@ const TEST_CASES: &[(u32, &str)] = &[(0, "243f"),
 #[test]
 fn pihex_test() {
     for &(d, hex) in TEST_CASES {
-        assert_eq!(pihex(d), hex);
+        assert_eq!(bbp::pihex(d), hex);
     }
 }
