@@ -12,9 +12,8 @@ pub fn pihex(d: u32) -> String {
     (0..4)
         .scan(fraction, |x, _| {
             *x = (*x - x.floor()) * 16.0;
-            Some(*x)
+            Some(format!("{:x}", x.floor() as u64))
         })
-        .map(|x| format!("{:x}", x.floor() as u64))
         .fold(String::new(), |s, t| s + &t)
 }
 
