@@ -1,6 +1,6 @@
 # pihex
 Arbitrary place hexadecimal digits viewer of pi written in Rust.
-The library is based on the Bailey-Borwein-Plouffe formula (BBP formula).
+The library is based on the Bailey-Borwein-Plouffe formula (BBP formula) and Bellard's formula.
 
 ```
  $ pihex
@@ -30,3 +30,4 @@ This software is released under the MIT License, see LICENSE.
 ## References
 - David H. Bailey, Peter Borwein, and Simon Plouffe, On the Rapid Computation of Various Polylogarithmic Constants, Mathematics of Computation 66, 903-913, 1997.
 - David H. Bailey, The BBP Algorithm for Pi, September 17, 2006.
+- Fabrice Bellard, A new formula to compute the n'th binary digit of pi, 1997.
