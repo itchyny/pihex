@@ -1,7 +1,7 @@
 extern crate pihex;
 use pihex::*;
 
-const TEST_CASES: &[(u32, &str)] = &[(0, "243f"),
+const TEST_CASES: &[(u64, &str)] = &[(0, "243f"),
                                      (1, "43f6"),
                                      (2, "3f6a"),
                                      (3, "f6a8"),

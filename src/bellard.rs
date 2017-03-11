@@ -2,7 +2,7 @@ use std::thread;
 use std::sync::mpsc;
 use util;
 
-pub fn pihex(d: u32) -> String {
+pub fn pihex(d: u64) -> String {
     let (tx, rx) = mpsc::channel();
     for &(j, k, l) in &[(4, 1, -32.0),
                         (4, 3, -1.0),
@@ -12,7 +12,7 @@ pub fn pihex(d: u32) -> String {
                         (10, 7, -4.0),
                         (10, 9, 1.0)] {
         let tx = tx.clone();
-        thread::spawn(move || tx.send(l * series_sum(d, j as u32, k as u32)).unwrap());
+        thread::spawn(move || tx.send(l * series_sum(d, j, k)).unwrap());
     }
     drop(tx);
     let fraction: f64 = rx.iter().sum();
@@ -24,11 +24,11 @@ pub fn pihex(d: u32) -> String {
         .fold(String::new(), |s, t| s + &t)
 }
 
-fn series_sum(d: u32, j: u32, k: u32) -> f64 {
+fn series_sum(d: u64, j: u64, k: u64) -> f64 {
     let fraction1: f64 = (0..(2 * d + 2) / 5)
         .map(|i| {
             ((if i % 2 == 0 { 1.0 } else { -1.0 }) *
-             util::powmod(4, 2 * d - 3 - 5 * i, (j * i + k) as u64) as f64) /
+             util::powmod(4, 2 * d - 3 - 5 * i, j * i + k) as f64) /
             ((j * i + k) as f64)
         })
         .fold(0.0, |x, y| (x + y).fract());
