@@ -1,4 +1,4 @@
-pub fn pow_mod(n: u64, m: u64, d: u64) -> u64 {
+pub fn pow_mod(n: u128, m: u128, d: u128) -> u128 {
     if m == 0 {
         1 % d
     } else if m == 1 {
