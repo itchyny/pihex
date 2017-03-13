@@ -25,7 +25,7 @@ fn series_sum(d: u64, j: u64) -> f64 {
         })
         .fold(0.0, |x, y| (x + y).fract());
     let fraction2: f64 = (d + 1..)
-        .map(|i| 16.0_f64.powi(d as i32 - i as i32) / ((8 * i + j) as f64))
+        .map(|i| 16.0_f64.powi(-((i - d) as i32)) / ((8 * i + j) as f64))
         .take_while(|&x| x > 1e-13_f64)
         .sum();
     fraction1 + fraction2
