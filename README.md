@@ -29,8 +29,9 @@ This software is released under the MIT License, see LICENSE.
 
 ## Disclaimer
 I tested very carefully but this software does not always answer correctly due to the floating-point inaccuracy.
-If there's a place with over 53bit zeros in hexadecimal representation of pi (I'm not sure where it is), we can never ensure the answer really correct calculated by double-precision floating-point numbers.
+If there's a place with over 53bit zeros in binary representation of pi (I'm not sure where it is), we never ensure the answer calculated by double-precision floating-point numbers is correct.
 Therefore when you use this software, be careful the answer is not suffered from floating-point calculation errors.
+If the successive digits in hexadecimal representation repeat '0' or 'f' over 13 times, it's highly inaccurate due to this calculation errors.
 
 ## References
 - David H. Bailey, Peter Borwein, and Simon Plouffe, On the Rapid Computation of Various Polylogarithmic Constants, Mathematics of Computation 66, 903-913, 1997.
