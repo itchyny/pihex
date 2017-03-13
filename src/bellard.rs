@@ -28,8 +28,7 @@ fn series_sum(d: u64, j: u64, k: u64) -> f64 {
     let fraction1: f64 = (0..(2 * d + 2) / 5)
         .map(|i| {
             (if i % 2 == 0 { 1.0 } else { -1.0 }) *
-            util::pow_mod(4, (2 * d - 3 - 5 * i) as u128, (j * i + k) as u128) as f64 /
-            (j * i + k) as f64
+            util::pow_mod(4, 2 * d - 3 - 5 * i, j * i + k) as f64 / (j * i + k) as f64
         })
         .fold(0.0, |x, y| (x + y).fract());
     let fraction2: f64 = ((2 * d + 2) / 5..)

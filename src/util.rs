@@ -1,10 +1,35 @@
-pub fn pow_mod(n: u128, m: u128, d: u128) -> u128 {
+pub fn pow_mod(n: u64, m: u64, d: u64) -> u64 {
+    if n < 100 && d < 400_000_000 {
+        // k * k * n < 2^64 - 1
+        pow_mod_u64(n, m, d)
+    } else {
+        pow_mod_u128(n as u128, m as u128, d as u128) as u64
+    }
+}
+
+fn pow_mod_u64(n: u64, m: u64, d: u64) -> u64 {
     if m == 0 {
         1 % d
     } else if m == 1 {
         n % d
     } else {
-        let k = pow_mod(n, m / 2, d);
+        let k = pow_mod_u64(n, m / 2, d);
+        if m % 2 == 0 {
+            (k * k) % d
+        } else {
+            (k * k * n) % d
+        }
+    }
+}
+
+// TODO: use generics; num package does not seem to support u128
+fn pow_mod_u128(n: u128, m: u128, d: u128) -> u128 {
+    if m == 0 {
+        1 % d
+    } else if m == 1 {
+        n % d
+    } else {
+        let k = pow_mod_u128(n, m / 2, d);
         if m % 2 == 0 {
             (k * k) % d
         } else {
@@ -15,7 +40,7 @@ pub fn pow_mod(n: u128, m: u128, d: u128) -> u128 {
 
 #[test]
 fn pow_mod_test() {
-    const TEST_CASES: &[(u128, u128, u128, u128)] =
+    const TEST_CASES: &[(u64, u64, u64, u64)] =
         &[(0, 0, 7, 1),
           (12, 0, 7, 1),
           (12, 1, 7, 5),
