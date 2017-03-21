@@ -11,3 +11,7 @@ categories = ["algorithms"]
 
 [dependencies]
 clap = "2.21"
+
+[[bin]]
+name = "pihex"
+doc = false
