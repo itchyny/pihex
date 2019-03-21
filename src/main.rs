@@ -16,7 +16,10 @@ fn main() {
         Some("bellard") => bellard::pihex,
         _ => bbp::pihex,
     };
-    let place: u64 = matches.value_of("PLACE").and_then(|x| x.parse().ok()).unwrap_or(0);
+    let place: u64 = matches
+        .value_of("PLACE")
+        .and_then(|x| x.parse().ok())
+        .unwrap_or(0);
     print!("{}:", place);
     for i in 0..8 {
         print!(" {}", pihex(place + 4 * i));
