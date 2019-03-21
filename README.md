@@ -24,6 +24,20 @@ The library is based on the Bailey-Borwein-Plouffe formula (BBP formula) and Bel
 ```
 Refer to `pihex --help` for further details.
 
+## Installation
+### Homebrew
+```shell
+brew install itchyny/tap/pihex
+```
+
+### Build from source
+```shell
+git clone https://github.com/itchyny/pihex-rs
+cd pihex-rs
+cargo install
+export PATH=$PATH:$HOME/.cargo/bin
+```
+
 ## Author
 itchyny (https://github.com/itchyny)
 
