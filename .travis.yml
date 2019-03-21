@@ -7,8 +7,11 @@ matrix:
 
 before_deploy:
   - cargo install
-  - mv "$(which pihex)" .
-  - zip pihex_"$(uname | awk '{ print tolower($0) }')".zip pihex
+  - export name="pihex_$(uname | awk '{ print tolower($0) }')"
+  - mkdir "$name"
+  - cp README.md LICENSE "$name"
+  - mv "$(which pihex)" "$name"
+  - zip -r "$name.zip" "$name"
 
 deploy:
   provider: releases
