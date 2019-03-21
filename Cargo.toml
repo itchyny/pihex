@@ -10,7 +10,7 @@ keywords = ["pi", "math"]
 categories = ["algorithms"]
 
 [dependencies]
-clap = "2.21"
+clap = "2.23.0"
 
 [[bin]]
 name = "pihex"
