@@ -6,9 +6,9 @@ use pihex::*;
 
 fn main() {
     let matches = clap_app!(pihex =>
-        (version: "1.0")
-        (author: "itchyny <itchyny@hatena.ne.jp>")
-        (about: "Arbitrary place hexadecimal digits viewer of pi written in Rust")
+        (version: env!("CARGO_PKG_VERSION"))
+        (author: env!("CARGO_PKG_AUTHORS"))
+        (about: env!("CARGO_PKG_DESCRIPTION"))
         (@arg FORMULA: --formula +takes_value "Formula to use (bbp or bellard)")
         (@arg PLACE: "Place of digits to calculate (defaults to 0)"))
         .get_matches();
