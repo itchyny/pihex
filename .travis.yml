@@ -8,5 +8,8 @@ rust:
   - nightly
 
 matrix:
+  include:
+    - os: linux
+    - os: osx
   allow_failures:
     - rust: nightly
