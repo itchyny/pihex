@@ -1,0 +1,20 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@master
+    - name: Build
+      run: cargo build
+    - name: Install
+      run: cargo install
+    - name: Test
+      run: cargo test
+    - name: Run
+      run: cargo run 1000
