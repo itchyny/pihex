@@ -4,7 +4,19 @@ extern crate clap;
 extern crate pihex;
 use pihex::*;
 
+const CMD_NAME: &'static str = "pihex";
+
 fn main() {
+    std::process::exit(match run() {
+        Ok(_) => 0,
+        Err(err) => {
+            eprintln!("{}: {}", CMD_NAME, err);
+            1
+        }
+    });
+}
+
+fn run() -> Result<(), String> {
     let matches = clap_app!(pihex =>
         (version: env!("CARGO_PKG_VERSION"))
         (author: env!("CARGO_PKG_AUTHORS"))
@@ -14,7 +26,10 @@ fn main() {
         .get_matches();
     let pihex: fn(u64) -> String = match matches.value_of("FORMULA") {
         Some("bellard") => bellard::pihex,
-        _ => bbp::pihex,
+        Some("bbp") | None => bbp::pihex,
+        Some(formula) => {
+            return Err(format!("unknown formula: {}", formula));
+        },
     };
     let place: u64 = matches
         .value_of("PLACE")
@@ -24,5 +39,6 @@ fn main() {
     for i in 0..8 {
         print!(" {}", pihex(place + 4 * i));
     }
-    print!("\n")
+    print!("\n");
+    Ok(())
 }
