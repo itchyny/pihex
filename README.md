@@ -1,4 +1,4 @@
-# pihex &emsp; [![Build Status](https://api.travis-ci.org/itchyny/pihex-rs.svg?branch=master)](https://travis-ci.org/itchyny/pihex-rs) [![Latest Version](https://img.shields.io/crates/v/pihex.svg)](https://crates.io/crates/pihex)
+# pihex-rs [![CI Status](https://github.com/itchyny/pihex-rs/workflows/CI/badge.svg)](https://github.com/itchyny/pihex-rs/actions) [![Latest Version](https://img.shields.io/crates/v/pihex.svg)](https://crates.io/crates/pihex)
 Arbitrary place hexadecimal digits viewer of pi written in Rust.
 The library is based on the Bailey-Borwein-Plouffe formula (BBP formula) and Bellard's formula.
 
