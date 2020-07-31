@@ -1,4 +1,4 @@
-# pihex-rs [![CI Status](https://github.com/itchyny/pihex-rs/workflows/CI/badge.svg)](https://github.com/itchyny/pihex-rs/actions) [![Latest Version](https://img.shields.io/crates/v/pihex.svg)](https://crates.io/crates/pihex)
+# pihex-rs [![CI Status][ci-badge]][ci-url] [![MIT License][license-badge]][license-url] [![crates.io][cratesio-badge]][cratesio-url]
 Arbitrary place hexadecimal digits viewer of pi written in Rust.
 The library is based on the Bailey-Borwein-Plouffe formula (BBP formula) and Bellard's formula.
 
@@ -54,3 +54,10 @@ If the successive digits in hexadecimal representation repeat '0' or 'f' over 13
 - David H. Bailey, Peter Borwein, and Simon Plouffe, On the Rapid Computation of Various Polylogarithmic Constants, Mathematics of Computation 66, 903-913, 1997.
 - David H. Bailey, The BBP Algorithm for Pi, September 17, 2006.
 - Fabrice Bellard, A new formula to compute the n'th binary digit of pi, 1997.
+
+[ci-url]: https://github.com/itchyny/pihex-rs/actions
+[ci-badge]: https://github.com/itchyny/pihex-rs/workflows/CI/badge.svg
+[license-url]: https://github.com/itchyny/pihex-rs/blob/master/LICENSE
+[license-badge]: http://img.shields.io/badge/license-MIT-blue.svg
+[cratesio-url]: https://crates.io/crates/pihex
+[cratesio-badge]: https://img.shields.io/crates/v/pihex.svg
