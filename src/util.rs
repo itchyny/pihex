@@ -1,36 +1,32 @@
 pub fn pow_mod(n: u64, m: u64, d: u64) -> u64 {
     if n < 100 && d < 400_000_000 {
         // k * k * n < 2^64 - 1
-        pow_mod_u64(n, m, d)
+        pow_mod_inner(n, m, d)
     } else {
-        pow_mod_u128(n as u128, m as u128, d as u128) as u64
+        pow_mod_inner(n as u128, m as u128, d as u128) as u64
     }
 }
 
-fn pow_mod_u64(n: u64, m: u64, d: u64) -> u64 {
-    if m == 0 {
-        1 % d
-    } else if m == 1 {
-        n % d
-    } else {
-        let k = pow_mod_u64(n, m / 2, d);
-        if m % 2 == 0 {
-            (k * k) % d
+fn pow_mod_inner<T>(n: T, m: T, d: T) -> T
+where
+    T: Copy
+        + std::cmp::PartialEq
+        + std::ops::Mul<Output = T>
+        + std::ops::Div<Output = T>
+        + std::ops::Rem<Output = T>
+        + std::convert::From<u64>,
+{
+    if m == 0.into() {
+        if d == 1.into() {
+            0.into()
         } else {
-            (k * k * n) % d
+            1.into()
         }
-    }
-}
-
-// TODO: use generics; num package does not seem to support u128
-fn pow_mod_u128(n: u128, m: u128, d: u128) -> u128 {
-    if m == 0 {
-        1 % d
-    } else if m == 1 {
+    } else if m == 1.into() {
         n % d
     } else {
-        let k = pow_mod_u128(n, m / 2, d);
-        if m % 2 == 0 {
+        let k = pow_mod_inner(n, m / 2.into(), d);
+        if m % 2.into() == 0.into() {
             (k * k) % d
         } else {
             (k * k * n) % d
@@ -41,6 +37,7 @@ fn pow_mod_u128(n: u128, m: u128, d: u128) -> u128 {
 #[test]
 fn pow_mod_test() {
     const TEST_CASES: &[(u64, u64, u64, u64)] = &[
+        (0, 0, 1, 0),
         (0, 0, 7, 1),
         (12, 0, 7, 1),
         (12, 1, 7, 5),
