@@ -39,7 +39,7 @@ brew install itchyny/tap/pihex
 ```shell
 git clone https://github.com/itchyny/pihex-rs
 cd pihex-rs
-cargo install
+cargo install --path .
 export PATH=$PATH:$HOME/.cargo/bin
 ```
 
