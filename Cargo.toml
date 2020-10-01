@@ -8,6 +8,7 @@ readme = "README.md"
 license = "MIT"
 keywords = ["pi", "math"]
 categories = ["algorithms"]
+edition = "2018"
 
 [dependencies]
 clap = "2.33.0"
