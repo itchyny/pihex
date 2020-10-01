@@ -23,13 +23,11 @@ fn run() -> Result<(), String> {
         (about: env!("CARGO_PKG_DESCRIPTION"))
         (@arg FORMULA: --formula +takes_value "Formula to use (bbp or bellard)")
         (@arg PLACE: "Place of digits to calculate (defaults to 0)"))
-        .get_matches();
+    .get_matches();
     let pihex: fn(u64) -> String = match matches.value_of("FORMULA") {
         Some("bellard") => bellard::pihex,
         Some("bbp") | None => bbp::pihex,
-        Some(formula) => {
-            return Err(format!("unknown formula: {}", formula));
-        },
+        Some(formula) => return Err(format!("unknown formula: {}", formula)),
     };
     let place: u64 = matches
         .value_of("PLACE")

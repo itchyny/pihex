@@ -1,6 +1,6 @@
-use std::thread;
-use std::sync::mpsc;
 use crate::util;
+use std::sync::mpsc;
+use std::thread;
 
 pub fn pihex(d: u64) -> String {
     let (tx, rx) = mpsc::channel();
