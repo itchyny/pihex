@@ -11,7 +11,7 @@ categories = ["algorithms"]
 edition = "2018"
 
 [dependencies]
-clap = "2.33.0"
+clap = "2.33.3"
 
 [[bin]]
 name = "pihex"
