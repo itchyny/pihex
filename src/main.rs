@@ -1,6 +1,4 @@
-#[macro_use]
-extern crate clap;
-
+use clap::{arg, Command};
 use pihex::*;
 
 fn main() {
@@ -11,20 +9,20 @@ fn main() {
 }
 
 fn run() -> Result<(), String> {
-    let matches = clap_app!(pihex =>
-        (version: env!("CARGO_PKG_VERSION"))
-        (author: env!("CARGO_PKG_AUTHORS"))
-        (about: env!("CARGO_PKG_DESCRIPTION"))
-        (@arg FORMULA: --formula +takes_value "Formula to use (bbp or bellard)")
-        (@arg PLACE: "Place of digits to calculate (defaults to 0)"))
-    .get_matches();
-    let pihex: fn(u64) -> String = match matches.value_of("FORMULA") {
+    let matches = Command::new(env!("CARGO_PKG_NAME"))
+        .version(env!("CARGO_PKG_VERSION"))
+        .author(env!("CARGO_PKG_AUTHORS"))
+        .about(env!("CARGO_PKG_DESCRIPTION"))
+        .arg(arg!(--formula <FORMULA> "Formula to use (bbp or bellard)"))
+        .arg(arg!([PLACE] "Place of digits to calculate (defaults to 0)"))
+        .get_matches();
+    let pihex: fn(u64) -> String = match matches.get_one::<String>("formula").map(String::as_ref) {
         Some("bellard") => bellard::pihex,
         Some("bbp") | None => bbp::pihex,
         Some(formula) => return Err(format!("unknown formula: {}", formula)),
     };
     let place: u64 = matches
-        .value_of("PLACE")
+        .get_one::<String>("PLACE")
         .and_then(|x| x.parse().ok())
         .unwrap_or(0);
     print!("{}:", place);
