@@ -97,7 +97,7 @@ jobs:
       - name: Build artifact
         run: |
           mkdir ${{ steps.artifact.outputs.name }}
-          cp README.md LICENSE target/${{ matrix.target }}/release/${{ steps.executable.outputs.name }} ${{ steps.artifact.outputs.name }}
+          cp README.md LICENSE _pihex target/${{ matrix.target }}/release/${{ steps.executable.outputs.name }} ${{ steps.artifact.outputs.name }}
           if [[ ${{ matrix.os }} == windows ]]; then
             powershell Compress-Archive -Path ${{ steps.artifact.outputs.name }} -DestinationPath ${{ steps.artifact.outputs.name }}.zip
           else
