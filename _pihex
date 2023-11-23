@@ -2,9 +2,11 @@
 
 _pihex()
 {
-  _arguments -C \
-    '(--formula)'--formula'=-[Formula to use (default: bbp)]:formula name:(bbp bellard)' \
-    '(-V --version)'{-V,--version}'[Prints version information]' \
-    '(-h --help)'{-h,--help}'[Prints help information]' \
-    && ret=0
+  _arguments -S \
+    '--formula=[Formula to use]:formula name:((
+      bbp\:"Bailey-Borwein-Plouffe formula (default)"
+      bellard\:"Bellard'\''s formula"))' \
+    '1: :_guard "^-*" "place of digits (default: 0)"' \
+    '(- 1 *)'{-V,--version}'[Prints version information]' \
+    '(- 1 *)'{-h,--help}'[Prints help information]'
 }
