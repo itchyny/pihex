@@ -17,6 +17,7 @@ codegen-units = 1
 
 [dependencies]
 clap = "4.4.8"
+thiserror = "1.0.50"
 
 [[bin]]
 name = "pihex"
