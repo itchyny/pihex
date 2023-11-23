@@ -1,4 +1,3 @@
-extern crate pihex;
 use pihex::*;
 
 const TEST_CASES: &[(u64, &str)] = &[
