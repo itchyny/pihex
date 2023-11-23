@@ -1,10 +1,11 @@
 use crate::util;
+use std::fmt::Write;
 use std::sync::mpsc;
 use std::thread;
 
 pub fn pihex(d: u64) -> String {
     let (tx, rx) = mpsc::channel();
-    for &(j, k, l) in &[
+    for (j, k, l) in [
         (4, 1, -32.0),
         (4, 3, -1.0),
         (10, 1, 256.0),
@@ -17,13 +18,13 @@ pub fn pihex(d: u64) -> String {
         thread::spawn(move || tx.send(l * series_sum(d, j, k)).unwrap());
     }
     drop(tx);
-    let fraction: f64 = rx.iter().sum();
-    (0..4)
-        .scan(fraction, |x, _| {
-            *x = (*x - x.floor()) * 16.0;
-            Some(format!("{:x}", x.floor() as u32))
-        })
-        .fold(String::new(), |s, t| s + &t)
+    let mut f = rx.iter().sum::<f64>();
+    let mut s = String::with_capacity(4);
+    for _ in 0..4 {
+        f = (f - f.floor()) * 16.0;
+        write!(&mut s, "{:x}", f.floor() as u32).unwrap();
+    }
+    s
 }
 
 fn series_sum(d: u64, j: u64, k: u64) -> f64 {

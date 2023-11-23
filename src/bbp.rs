@@ -1,21 +1,23 @@
-use crate::util;
+use std::fmt::Write;
 use std::sync::mpsc;
 use std::thread;
 
+use crate::util;
+
 pub fn pihex(d: u64) -> String {
     let (tx, rx) = mpsc::channel();
-    for &(j, k) in &[(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)] {
+    for (j, k) in [(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)] {
         let tx = tx.clone();
         thread::spawn(move || tx.send(k * series_sum(d, j)).unwrap());
     }
     drop(tx);
-    let fraction: f64 = rx.iter().sum();
-    (0..4)
-        .scan(fraction, |x, _| {
-            *x = (*x - x.floor()) * 16.0;
-            Some(format!("{:x}", x.floor() as u32))
-        })
-        .fold(String::new(), |s, t| s + &t)
+    let mut f = rx.iter().sum::<f64>();
+    let mut s = String::with_capacity(4);
+    for _ in 0..4 {
+        f = (f - f.floor()) * 16.0;
+        write!(&mut s, "{:x}", f.floor() as u32).unwrap();
+    }
+    s
 }
 
 fn series_sum(d: u64, j: u64) -> f64 {
@@ -24,7 +26,7 @@ fn series_sum(d: u64, j: u64) -> f64 {
         .fold(0.0, |x, y| (x + y).fract());
     let fraction2: f64 = (d + 1..)
         .map(|i| 16.0_f64.powi(-((i - d) as i32)) / ((8 * i + j) as f64))
-        .take_while(|&x| x > 1e-13_f64)
+        .take_while(|&x| x.abs() > 1e-13_f64)
         .sum();
     fraction1 + fraction2
 }
