@@ -1,19 +1,13 @@
 #[macro_use]
 extern crate clap;
 
-extern crate pihex;
 use pihex::*;
 
-const CMD_NAME: &'static str = "pihex";
-
 fn main() {
-    std::process::exit(match run() {
-        Ok(_) => 0,
-        Err(err) => {
-            eprintln!("{}: {}", CMD_NAME, err);
-            1
-        }
-    });
+    if let Err(err) = run() {
+        eprintln!("{}: {}", env!("CARGO_PKG_NAME"), err);
+        std::process::exit(1);
+    }
 }
 
 fn run() -> Result<(), String> {
@@ -37,6 +31,6 @@ fn run() -> Result<(), String> {
     for i in 0..8 {
         print!(" {}", pihex(place + 4 * i));
     }
-    print!("\n");
+    println!();
     Ok(())
 }
