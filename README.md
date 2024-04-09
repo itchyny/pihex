@@ -35,16 +35,20 @@ Refer to `pihex --help` for further details.
 brew install itchyny/tap/pihex
 ```
 
+### Build from crates.io
+```shell
+cargo install pihex
+```
+
 ### Build from source
 ```shell
 git clone https://github.com/itchyny/pihex
 cd pihex
 cargo install --path .
-export PATH=$PATH:$HOME/.cargo/bin
 ```
 
 ## Author
-itchyny (https://github.com/itchyny)
+itchyny (<https://github.com/itchyny>)
 
 ## License
 This software is released under the MIT License, see LICENSE.
