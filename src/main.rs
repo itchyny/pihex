@@ -4,7 +4,7 @@ use thiserror::Error;
 
 fn main() {
     if let Err(err) = run() {
-        eprintln!("{}: {}", env!("CARGO_PKG_NAME"), err);
+        eprintln!("{}: {}", env!("CARGO_BIN_NAME"), err);
         std::process::exit(1);
     }
 }
@@ -19,7 +19,7 @@ enum Error {
 }
 
 fn run() -> Result<(), Error> {
-    let matches = Command::new(env!("CARGO_PKG_NAME"))
+    let matches = Command::new(env!("CARGO_BIN_NAME"))
         .version(env!("CARGO_PKG_VERSION"))
         .author(env!("CARGO_PKG_AUTHORS"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
