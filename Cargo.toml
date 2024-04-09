@@ -1,6 +1,6 @@
 [package]
 name = "pihex"
-version = "0.1.7"
+version = "0.1.8"
 authors = ["itchyny <itchyny@cybozu.co.jp>"]
 description = "Arbitrary place hexadecimal digits viewer of pi written in Rust"
 repository = "https://github.com/itchyny/pihex"
