@@ -53,13 +53,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install target toolchain
-        if: matrix.arch == 'arm64'
+        run: rustup target add ${{ matrix.target }}
+      - name: Install cross-compiler for arm64 on Linux
+        if: matrix.os == 'linux' && matrix.arch == 'arm64'
         run: |
-          rustup target add ${{ matrix.target }}
-          if [[ ${{ matrix.os }} == linux ]]; then
-            sudo apt-get install gcc-aarch64-linux-gnu
-            echo "RUSTFLAGS=-C linker=aarch64-linux-gnu-gcc" >> "$GITHUB_ENV"
-          fi
+          sudo apt-get install gcc-aarch64-linux-gnu
+          echo "RUSTFLAGS=-C linker=aarch64-linux-gnu-gcc" >> "$GITHUB_ENV"
       - name: Cache dependencies
         uses: Swatinem/rust-cache@v2
       - name: Build
@@ -68,7 +67,7 @@ jobs:
         id: executable
         run: echo name=${{ github.event.repository.name }} >> "$GITHUB_OUTPUT"
       - name: Run
-        if: matrix.arch == 'amd64'
+        if: matrix.os == 'darwin' || matrix.arch == 'amd64'
         run: target/${{ matrix.target }}/release/${{ steps.executable.outputs.name }}
       - name: Set artifact name
         id: artifact
