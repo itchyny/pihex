@@ -16,8 +16,8 @@ strip = true
 codegen-units = 1
 
 [dependencies]
-clap = "4.5.4"
-thiserror = "1.0.58"
+clap = "4.6.5"
+thiserror = "2.0.19"
 
 [[bin]]
 name = "pihex"
