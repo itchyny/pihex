@@ -1,5 +1,4 @@
 use std::fmt::Write;
-use std::sync::mpsc;
 use std::thread;
 
 use crate::util;
@@ -14,13 +13,11 @@ use crate::util;
 ///
 /// See the [crate-level documentation](crate) for the accuracy caveat.
 pub fn pihex(d: u64) -> String {
-    let (tx, rx) = mpsc::channel();
-    for (j, k) in [(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)] {
-        let tx = tx.clone();
-        thread::spawn(move || tx.send(k * series_sum(d, j)).unwrap());
-    }
-    drop(tx);
-    let mut f = rx.iter().sum::<f64>();
+    let mut f = [(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)]
+        .map(|(j, k)| thread::spawn(move || k * series_sum(d, j)))
+        .into_iter()
+        .map(|handle| handle.join().unwrap())
+        .sum::<f64>();
     let mut s = String::with_capacity(4);
     for _ in 0..4 {
         f = (f - f.floor()) * 16.0;
@@ -30,7 +27,7 @@ pub fn pihex(d: u64) -> String {
 }
 
 fn series_sum(d: u64, j: u64) -> f64 {
-    let fraction1: f64 = (0..d + 1)
+    let fraction1: f64 = (0..=d)
         .map(|i| util::pow_mod(16, d - i, 8 * i + j) as f64 / (8 * i + j) as f64)
         .fold(0.0, |x, y| (x + y).fract());
     let fraction2: f64 = (d + 1..)

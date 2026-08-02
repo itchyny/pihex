@@ -1,6 +1,5 @@
 use crate::util;
 use std::fmt::Write;
-use std::sync::mpsc;
 use std::thread;
 
 /// Returns the four hexadecimal digits of pi starting at place `d`, computed
@@ -15,8 +14,7 @@ use std::thread;
 ///
 /// See the [crate-level documentation](crate) for the accuracy caveat.
 pub fn pihex(d: u64) -> String {
-    let (tx, rx) = mpsc::channel();
-    for (j, k, l) in [
+    let mut f = [
         (4, 1, -32.0),
         (4, 3, -1.0),
         (10, 1, 256.0),
@@ -24,12 +22,11 @@ pub fn pihex(d: u64) -> String {
         (10, 5, -4.0),
         (10, 7, -4.0),
         (10, 9, 1.0),
-    ] {
-        let tx = tx.clone();
-        thread::spawn(move || tx.send(l * series_sum(d, j, k)).unwrap());
-    }
-    drop(tx);
-    let mut f = rx.iter().sum::<f64>();
+    ]
+    .map(|(j, k, l)| thread::spawn(move || l * series_sum(d, j, k)))
+    .into_iter()
+    .map(|handle| handle.join().unwrap())
+    .sum::<f64>();
     let mut s = String::with_capacity(4);
     for _ in 0..4 {
         f = (f - f.floor()) * 16.0;
