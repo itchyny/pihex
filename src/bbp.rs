@@ -4,6 +4,15 @@ use std::thread;
 
 use crate::util;
 
+/// Returns the four hexadecimal digits of pi starting at place `d`, computed
+/// with the Bailey-Borwein-Plouffe formula.
+///
+/// ```
+/// assert_eq!(pihex::bbp::pihex(0), "243f");
+/// assert_eq!(pihex::bbp::pihex(1), "43f6");
+/// ```
+///
+/// See the [crate-level documentation](crate) for the accuracy caveat.
 pub fn pihex(d: u64) -> String {
     let (tx, rx) = mpsc::channel();
     for (j, k) in [(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)] {

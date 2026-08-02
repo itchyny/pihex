@@ -3,6 +3,17 @@ use std::fmt::Write;
 use std::sync::mpsc;
 use std::thread;
 
+/// Returns the four hexadecimal digits of pi starting at place `d`, computed
+/// with Bellard's formula.
+///
+/// This yields the same digits as [`crate::bbp::pihex`] but converges faster.
+///
+/// ```
+/// assert_eq!(pihex::bellard::pihex(0), "243f");
+/// assert_eq!(pihex::bellard::pihex(1), "43f6");
+/// ```
+///
+/// See the [crate-level documentation](crate) for the accuracy caveat.
 pub fn pihex(d: u64) -> String {
     let (tx, rx) = mpsc::channel();
     for (j, k, l) in [
