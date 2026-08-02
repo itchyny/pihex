@@ -1,5 +1,5 @@
 # pihex
-[![CI Status](https://github.com/itchyny/pihex/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/itchyny/pihex/actions?query=branch:main)
+[![CI Status](https://github.com/itchyny/pihex/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/itchyny/pihex/actions/workflows/ci.yaml?query=branch:main)
 [![crates.io](https://img.shields.io/crates/v/pihex.svg)](https://crates.io/crates/pihex)
 [![release](https://img.shields.io/github/release/itchyny/pihex/all.svg)](https://github.com/itchyny/pihex/releases)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/itchyny/pihex/blob/main/LICENSE)
