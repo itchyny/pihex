@@ -7,6 +7,6 @@ _pihex()
       bbp\:"Bailey-Borwein-Plouffe formula (default)"
       bellard\:"Bellard'\''s formula"))' \
     '1: :_guard "^-*" "place of digits (default: 0)"' \
-    '(- 1 *)'{-V,--version}'[Prints version information]' \
-    '(- 1 *)'{-h,--help}'[Prints help information]'
+    '(- 1 *)'{-V,--version}'[Print version]' \
+    '(- 1 *)'{-h,--help}'[Print help]'
 }
