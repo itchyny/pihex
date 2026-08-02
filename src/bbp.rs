@@ -12,6 +12,7 @@ use crate::util;
 /// ```
 ///
 /// See the [crate-level documentation](crate) for the accuracy caveat.
+#[must_use]
 pub fn pihex(d: u64) -> String {
     let mut f = [(1, 4.0), (4, -2.0), (5, -1.0), (6, -1.0)]
         .map(|(j, k)| thread::spawn(move || k * series_sum(d, j)))

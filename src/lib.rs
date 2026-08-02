@@ -20,6 +20,8 @@
 //! pi holds a long run of zeros (more than 53 bits, i.e. over 13 successive `0`
 //! or `f` hexadecimal digits) may be computed incorrectly.
 
+#![forbid(unsafe_code)]
+
 pub mod bbp;
 pub mod bellard;
 mod util;

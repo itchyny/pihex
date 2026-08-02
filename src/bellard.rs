@@ -13,6 +13,7 @@ use std::thread;
 /// ```
 ///
 /// See the [crate-level documentation](crate) for the accuracy caveat.
+#[must_use]
 pub fn pihex(d: u64) -> String {
     let mut f = [
         (4, 1, -32.0),
