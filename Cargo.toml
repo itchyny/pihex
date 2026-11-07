@@ -1,16 +1,23 @@
 [package]
 name = "pihex"
 version = "0.1.9"
-authors = ["itchyny <itchyny@cybozu.co.jp>"]
+edition = "2024"
 description = "Arbitrary place hexadecimal digits viewer of pi written in Rust"
 repository = "https://github.com/itchyny/pihex"
-readme = "README.md"
+authors = ["itchyny <itchyny@cybozu.co.jp>"]
 license = "MIT"
+readme = "README.md"
 keywords = ["pi", "math"]
 categories = ["algorithms"]
-edition = "2021"
+rust-version = "1.94.1"
+
+[package.metadata.binstall]
+pkg-url = "{ repo }/releases/download/v{ version }/{ name }-v{ version }-{ target }{ archive-suffix }"
+bin-dir = "{ name }-v{ version }-{ target }/{ bin }{ binary-ext }"
+pkg-fmt = "zip"
 
 [profile.release]
+opt-level = "s"
 lto = true
 strip = true
 codegen-units = 1
@@ -18,7 +25,3 @@ codegen-units = 1
 [dependencies]
 clap = "4.6.5"
 thiserror = "2.0.19"
-
-[[bin]]
-name = "pihex"
-doc = false
