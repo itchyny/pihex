@@ -16,12 +16,12 @@ pkg-url = "{ repo }/releases/download/v{ version }/{ name }-v{ version }-{ targe
 bin-dir = "{ name }-v{ version }-{ target }/{ bin }{ binary-ext }"
 pkg-fmt = "zip"
 
+[dependencies]
+clap = "4.6.7"
+thiserror = "2.0.21"
+
 [profile.release]
 opt-level = "s"
 lto = true
 strip = true
 codegen-units = 1
-
-[dependencies]
-clap = "4.6.5"
-thiserror = "2.0.19"
