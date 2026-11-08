@@ -1,4 +1,5 @@
 # pihex
+
 [![CI Status](https://github.com/itchyny/pihex/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/itchyny/pihex/actions/workflows/ci.yaml?query=branch:main)
 [![crates.io](https://img.shields.io/crates/v/pihex.svg)](https://crates.io/crates/pihex)
 [![release](https://img.shields.io/github/release/itchyny/pihex/all.svg)](https://github.com/itchyny/pihex/releases)
@@ -7,7 +8,7 @@
 Arbitrary place hexadecimal digits viewer of pi written in Rust.
 The library is based on the Bailey-Borwein-Plouffe formula (BBP formula) and Bellard's formula.
 
-```
+```shell
  $ pihex
 0: 243f 6a88 85a3 08d3 1319 8a2e 0370 7344
  $ pihex 1
@@ -27,39 +28,54 @@ The library is based on the Bailey-Borwein-Plouffe formula (BBP formula) and Bel
  $ pihex --formula=bellard 100000000 # yields the same result but faster than BBP formula
 100000000: cb84 0e21 926e c5ae 0d2f 3405 1045 93cb
 ```
+
 Refer to `pihex --help` for further details.
 
 ## Installation
+
 ### Homebrew
+
 ```shell
 brew install itchyny/tap/pihex
 ```
 
 ### Build from crates.io
+
 ```shell
 cargo install pihex
 ```
 
-### Build from source
+### Using cargo-binstall
+
+With [cargo-binstall](https://github.com/cargo-bins/cargo-binstall), the prebuilt binary for your platform is installed from the releases page.
+
 ```shell
-git clone https://github.com/itchyny/pihex
-cd pihex
-cargo install --path .
+cargo binstall pihex
+```
+
+### Build from source
+
+```shell
+cargo install --git https://github.com/itchyny/pihex
 ```
 
 ## Author
+
 itchyny (<https://github.com/itchyny>)
 
 ## License
-This software is released under the MIT License, see LICENSE.
+
+This software is released under the MIT License, see [LICENSE](LICENSE).
 
 ## Disclaimer
+
 I tested very carefully but this software does not always answer correctly due to the floating-point arithmetic inaccuracy.
 If there's a place with over 53bit zeros in binary representation of pi (I'm not sure where it is), we never ensure the answer calculated by double-precision floating-point numbers is correct.
 Therefore when you use this software, be careful the answer is not suffered from floating-point calculation errors.
 If the successive digits in hexadecimal representation repeat '0' or 'f' over 13 times, it's highly inaccurate due to this calculation errors.
 
 ## References
+
 - David H. Bailey, Peter Borwein, and Simon Plouffe, On the Rapid Computation of Various Polylogarithmic Constants, Mathematics of Computation 66, 903-913, 1997.
 - David H. Bailey, The BBP Algorithm for Pi, September 17, 2006.
 - Fabrice Bellard, A new formula to compute the n'th binary digit of pi, 1997.
