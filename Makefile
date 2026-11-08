@@ -24,8 +24,13 @@ GIT_DIFF := $$(echo $$(git diff --name-only))
 bump:
 	test -z "$$(git status --porcelain || echo .)"
 	test "$$(git branch --show-current)" = "main"
+ifeq ($(origin VERSION),command line)
+	echo "$(VERSION)" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$$'
+	sed -i.bak '/^version =/s/"[0-9][0-9.]*"/"$(VERSION)"/' Cargo.toml && rm Cargo.toml.bak
+else
 	@printf "Bump up version in Cargo.toml. Press Enter to proceed: "
 	@read -n1
+endif
 	cargo update --workspace
 	@[ "$(GIT_DIFF)" == "Cargo.lock Cargo.toml" ] || { \
 		echo "Version is not updated or unrelated file is updated:"; \
