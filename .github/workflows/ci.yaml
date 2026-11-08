@@ -24,7 +24,7 @@ jobs:
         include:
           - os: linux
             runs-on: ubuntu-latest
-            targets: x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu
+            targets: x86_64-unknown-linux-musl aarch64-unknown-linux-musl
           - os: darwin
             runs-on: macos-latest
             targets: x86_64-apple-darwin aarch64-apple-darwin
@@ -36,7 +36,7 @@ jobs:
       OS: ${{ matrix.os }}
       TARGETS: ${{ matrix.targets }}
       VERSION: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || github.event.pull_request.head.sha || github.sha }}
-      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
+      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: aarch64-linux-gnu-gcc
     steps:
       - name: Checkout code
         uses: actions/checkout@v7.0.1
