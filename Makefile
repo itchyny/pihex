@@ -18,7 +18,7 @@ clean:
 	cargo clean
 
 VERSION := $$(sed -n '/^version =/s/^.*  *"\([0-9][0-9.]*\)".*$$/\1/p' Cargo.toml)
-GIT_DIFF := $$(git diff --name-only)
+GIT_DIFF := $$(echo $$(git diff --name-only))
 
 .PHONY: bump
 bump:
@@ -26,7 +26,8 @@ bump:
 	test "$$(git branch --show-current)" = "main"
 	@printf "Bump up version in Cargo.toml. Press Enter to proceed: "
 	@read -n1
-	@[ "$(GIT_DIFF)" == "Cargo.toml" ] || { \
+	cargo update --workspace
+	@[ "$(GIT_DIFF)" == "Cargo.lock Cargo.toml" ] || { \
 		echo "Version is not updated or unrelated file is updated:"; \
 		[ -z "$(GIT_DIFF)" ] || printf "  %s\n" $(GIT_DIFF); \
 		exit 1; \
