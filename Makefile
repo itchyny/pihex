@@ -40,7 +40,3 @@ endif
 	git commit -am "bump up version to $(VERSION)"
 	git tag "v$(VERSION)"
 	git push --atomic origin main tag "v$(VERSION)"
-
-.PHONY: publish
-publish:
-	cargo publish
