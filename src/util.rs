@@ -17,11 +17,7 @@ where
         + std::convert::From<u64>,
 {
     if m == 0.into() {
-        if d == 1.into() {
-            0.into()
-        } else {
-            1.into()
-        }
+        if d == 1.into() { 0.into() } else { 1.into() }
     } else if m == 1.into() {
         n % d
     } else {
