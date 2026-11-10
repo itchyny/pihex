@@ -11,6 +11,9 @@ on:
 permissions:
   contents: read
 
+env:
+  NAME: ${{ github.event.repository.name }}
+
 defaults:
   run:
     shell: bash --noprofile --norc -euxo pipefail {0}
@@ -49,37 +52,37 @@ jobs:
         run: sudo apt-get install gcc-aarch64-linux-gnu
       - name: Cache dependencies
         uses: Swatinem/rust-cache@v2.9.3
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Format
+        run: cargo fmt --check
       - name: Clippy
-        run: cargo clippy --all-targets
+        run: cargo clippy --locked --all-targets -- -D warnings
       - name: Test
-        run: cargo test
+        run: cargo test --locked
       - name: Build
         run: |
           read -ra targets <<< "$TARGETS"
-          cargo build --release "${targets[@]/#/--target=}"
+          cargo build --locked --release "${targets[@]/#/--target=}"
       - name: Build artifacts
         run: |
-          name=${GITHUB_REPOSITORY#*/}
           read -ra targets <<< "$TARGETS"
           for target in "${targets[@]}"; do
-            executable=target/$target/release/$name
+            executable=target/$target/release/$NAME
             if [[ $OS == darwin || $target == x86_64-* ]]; then
               "$executable" --version
             fi
-            artifact=$name-$VERSION-$target
+            artifact=$NAME-$VERSION-$target
             mkdir "$artifact"
-            cp README.md LICENSE "_$name" "$executable" "$artifact"
-            if [[ $OS == windows ]]; then
-              powershell Compress-Archive -Path "$artifact" -DestinationPath "$artifact.zip"
-            else
-              zip -r "$artifact.zip" "$artifact"
-            fi
+            cp README.md LICENSE "_$NAME" "$executable" "$artifact"
+            7z a -tzip "$artifact.zip" "$artifact"
           done
       - name: Upload artifacts
         uses: actions/upload-artifact@v7.0.2
         with:
-          name: ${{ github.event.repository.name }}_${{ matrix.os }}
+          name: ${{ env.NAME }}_${{ matrix.os }}
           path: '*.zip'
+          if-no-files-found: error
 
   release:
     name: Release
@@ -97,9 +100,8 @@ jobs:
           path: artifacts
           merge-multiple: true
       - name: Create checksums
-        run: |
-          cd artifacts
-          sha256sum -- *.zip > "${GITHUB_REPOSITORY#*/}-$GITHUB_REF_NAME-checksums.txt"
+        run: sha256sum -- *.zip > "$NAME-$GITHUB_REF_NAME-checksums.txt"
+        working-directory: artifacts
       - name: Create release
         run: |
           gh release create "$GITHUB_REF_NAME" --verify-tag \
