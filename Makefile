@@ -7,7 +7,7 @@ build:
 
 .PHONY: install
 install:
-	cargo install --path .
+	cargo install --locked --path .
 
 .PHONY: test
 test: build
